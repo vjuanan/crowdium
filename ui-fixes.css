@@ -1,0 +1,262 @@
+/* ========================================
+   LAYOUT FIXES - STRICT SIZING
+   ======================================== */
+
+/* === 1. LOGO SIZING - RESET RULES (ANTI-DEFORMATION) === */
+/* RESET RULES FOR LOGOS */
+.entity-logo-small {
+    height: 28px !important;
+    width: auto !important;
+    max-width: 100px;
+    object-fit: contain !important;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: transparent;
+}
+
+.user-cell-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+/* === 2. UNIFIED BADGE - COMPACT PILL === */
+.unified-badge-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+.unified-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    font-size: 12px;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.badge-dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.badge-dot.crowdium {
+    background-color: #2563EB;
+}
+
+.badge-dot.cfa {
+    background-color: #DC2626;
+}
+
+/* === 3. SEARCH BAR - CENTERED BELOW PILL === */
+.search-container {
+    margin: 0 auto 24px auto;
+    max-width: 600px;
+    width: 100%;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* === 4. TABLE RADIUS CONSISTENCY === */
+.table-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+thead tr {
+    background: #f9fafb;
+}
+
+thead th {
+    background: #f9fafb;
+    border: none;
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+}
+
+thead th:first-child {
+    border-top-left-radius: 12px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+tbody tr {
+    background: white;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+tbody td {
+    padding: 12px 16px;
+    border: none;
+    vertical-align: middle;
+}
+
+/* === 5. STATUS BADGES === */
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    border: 1px solid transparent;
+}
+
+.status-badge[data-status-type="pending"] {
+    background-color: #fef3c7;
+    color: #92400e;
+    border-color: #fde68a;
+}
+
+.status-badge[data-status-type="en-progreso"] {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border-color: #bfdbfe;
+}
+
+.status-badge[data-status-type="completed"] {
+    background-color: #d1fae5;
+    color: #065f46;
+    border-color: #a7f3d0;
+}
+
+.status-badge[data-status-type="blocked"] {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
+}
+
+.status-badge[data-status-type="review"] {
+    background-color: #e0e7ff;
+    color: #3730a3;
+    border-color: #c7d2fe;
+}
+
+.status-badge:not([data-status-type]) {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border-color: #d1d5db;
+}
+
+/* === 6. USER BADGE === */
+.user-entity-badge-table__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #e5e7eb;
+    object-fit: cover;
+}
+
+.user-entity-badge-table__name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+/* === 7. FINANCIAL AMOUNTS === */
+.amount-cell {
+    text-align: right !important;
+    font-family: inherit !important;
+    font-variant-numeric: tabular-nums !important;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* === 8. COLUMN WIDTHS === */
+.sales-table th:nth-child(9),
+.sales-table td:nth-child(9) {
+    min-width: 320px;
+}
+
+/* === 9. CHAT PROJECT BADGES === */
+.muro-project {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 6px;
+    background-color: transparent !important;
+    border: 1.5px solid #d1d5db !important;
+    color: #6b7280 !important;
+}
+
+/* === 10. BUTTONS === */
+.btn-secondary-sm {
+    background: white;
+    border: 1.5px solid #d1d5db;
+    color: #374151;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-secondary-sm:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+}

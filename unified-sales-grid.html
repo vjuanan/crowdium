@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Sales Grid - Crowdium + CFA</title>
+    <link rel="stylesheet" href="design-system.css">
+</head>
+
+<body>
+
+    <!-- ========================================
+     UNIFIED SALES GRID COMPONENT
+     Tabla unificada con datos de ambas empresas
+     ======================================== -->
+
+    <div class="unified-sales-grid">
+        <table class="unified-sales-grid__table">
+            <!-- TABLE HEADER -->
+            <thead class="unified-sales-grid__header">
+                <tr>
+                    <th class="sortable" data-sort="entity">Entidad</th>
+                    <th class="sortable" data-sort="project">Proyecto</th>
+                    <th class="sortable" data-sort="client">Cliente</th>
+                    <th class="sortable" data-sort="status">Estado</th>
+                    <th class="sortable align-right" data-sort="amount">Monto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <!-- TABLE BODY -->
+            <tbody class="unified-sales-grid__body">
+                <!-- EJEMPLO: Venta de Crowdium (Inmobiliaria) -->
+                <tr data-sale-id="sale-001" data-entity="crowdium">
+                    <!-- COLUMNA: Entidad (Usuario + Empresa) -->
+                    <td class="col-entity">
+                        <div class="user-entity-badge" data-entity="crowdium">
+                            <div class="user-entity-badge__avatar-wrapper">
+                                <img src="https://i.pravatar.cc/150?img=12" alt="Juan Pérez"
+                                    class="user-entity-badge__avatar" />
+                                <div class="user-entity-badge__entity-icon" title="Crowdium">
+                                    C
+                                </div>
+                            </div>
+                            <span class="user-entity-badge__name">Juan P.</span>
+                        </div>
+                    </td>
+
+                    <!-- COLUMNA: Proyecto (Editable) -->
+                    <td class="unified-sales-grid__cell--editable">
+                        <span data-field="project">Torres del Este</span>
+                    </td>
+
+                    <!-- COLUMNA: Cliente (Editable) -->
+                    <td class="unified-sales-grid__cell--editable">
+                        <span data-field="client">María González</span>
+                    </td>
+
+                    <!-- COLUMNA: Estado (Pill) -->
+                    <td class="col-status">
+                        <span class="status-pill" data-entity="crowdium">
+                            En Negociación
+                        </span>
+                    </td>
+
+                    <!-- COLUMNA: Monto (Right-aligned, Tabular) -->
+                    <td class="col-amount tabular-nums">
+                        $125,000.00
+                    </td>
+
+                    <!-- COLUMNA: Acciones (Permisos) -->
+                    <td class="col-actions">
+                        <div class="action-buttons">
+                            <!-- Botón de Editar: Solo visible si es Owner o Admin -->
+                            <button class="action-btn action-btn--edit" data-action="edit" data-sale-id="sale-001"
+                                title="Editar">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+
+                            <!-- Botón de Eliminar: Solo visible si es Owner o Admin -->
+                            <button class="action-btn action-btn--delete" data-action="delete" data-sale-id="sale-001"
+                                title="Eliminar">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- EJEMPLO: Venta de CFA (Finanzas) -->
+                <tr data-sale-id="sale-002" data-entity="cfa">
+                    <td class="col-entity">
+                        <div class="user-entity-badge" data-entity="cfa">
+                            <div class="user-entity-badge__avatar-wrapper">
+                                <img src="https://i.pravatar.cc/150?img=22" alt="Ana Rodríguez"
+                                    class="user-entity-badge__avatar" />
+                                <div class="user-entity-badge__entity-icon" title="CFA">
+                                    F
+                                </div>
+                            </div>
+                            <span class="user-entity-badge__name">Ana R.</span>
+                        </div>
+                    </td>
+
+                    <td class="unified-sales-grid__cell--editable">
+                        <span data-field="project">Fondo Inversión X</span>
+                    </td>
+
+                    <td class="unified-sales-grid__cell--editable">
+                        <span data-field="client">Grupo Empresarial ABC</span>
+                    </td>
+
+                    <td class="col-status">
+                        <span class="status-pill" data-entity="cfa">
+                            Pendiente Aprobación
+                        </span>
+                    </td>
+
+                    <td class="col-amount tabular-nums">
+                        $450,000.00
+                    </td>
+
+                    <td class="col-actions">
+                        <div class="action-buttons">
+                            <!-- EJEMPLO: Usuario sin permisos (botones ocultos con CSS) -->
+                            <!-- En el JS real: 
+                             if (!canEdit) button.style.display = 'none'; 
+                        -->
+                            <button class="action-btn action-btn--edit" disabled>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- EJEMPLO: Otra venta de Crowdium -->
+                <tr data-sale-id="sale-003" data-entity="crowdium">
+                    <td class="col-entity">
+                        <div class="user-entity-badge" data-entity="crowdium">
+                            <div class="user-entity-badge__avatar-wrapper">
+                                <img src="https://i.pravatar.cc/150?img=45" alt="Carlos Méndez"
+                                    class="user-entity-badge__avatar" />
+                                <div class="user-entity-badge__entity-icon" title="Crowdium">
+                                    C
+                                </div>
+                            </div>
+                            <span class="user-entity-badge__name">Carlos M.</span>
+                        </div>
+                    </td>
+
+                    <td class="unified-sales-grid__cell--editable">
+                        <span data-field="project">Residencial Palmeras</span>
+                    </td>
+
+                    <td class="unified-sales-grid__cell--editable">
+                        <span data-field="client">Roberto Silva</span>
+                    </td>
+
+                    <td class="col-status">
+                        <span class="status-pill" data-entity="crowdium">
+                            Cerrada
+                        </span>
+                    </td>
+
+                    <td class="col-amount tabular-nums">
+                        $89,500.00
+                    </td>
+
+                    <td class="col-actions">
+                        <div class="action-buttons">
+                            <button class="action-btn action-btn--edit">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                            </button>
+                            <button class="action-btn action-btn--delete">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ========================================
+     JAVASCRIPT LOGIC (Permission-Aware Rendering)
+     ======================================== -->
+
+    <script>
+        /**
+         * PERMISSION-AWARE ACTION BUTTONS
+         * Esta función determina qué botones mostrar según el rol del usuario
+         */
+
+        // Simulación de usuario actual (en producción vendría de Supabase Auth)
+        const currentUser = {
+            id: 'user-001',
+            name: 'Juan Pérez',
+            role: 'admin', // 'admin' | 'user'
+            entity: 'crowdium'
+        };
+
+        /**
+         * Renderiza los botones de acción según permisos
+         * @param {Object} sale - Datos de la venta
+         * @param {Object} user - Usuario actual
+         * @returns {string} HTML de los botones
+         */
+        function renderActionButtons(sale, user) {
+            const isOwner = sale.user_id === user.id;
+            const isAdmin = user.role === 'admin';
+            const canEdit = isAdmin || isOwner;
+            const canDelete = isAdmin || isOwner;
+
+            return `
+        <div class="action-buttons">
+            ${canEdit ? `
+                <button 
+                    class="action-btn action-btn--edit" 
+                    onclick="handleEdit('${sale.id}')"
+                    title="Editar"
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </button>
+            ` : ''}
+            
+            ${canDelete ? `
+                <button 
+                    class="action-btn action-btn--delete" 
+                    onclick="handleDelete('${sale.id}')"
+                    title="Eliminar"
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            ` : ''}
+        </div>
+    `;
+        }
+
+        /**
+         * EJEMPLO DE INTEGRACIÓN CON SUPABASE
+         * Función que obtiene las ventas y las renderiza con permisos
+         */
+        async function loadUnifiedSalesGrid() {
+            // 1. Obtener datos de Supabase
+            const { data: sales, error } = await supabaseClient
+                .from('sales')
+                .select(`
+            *,
+            user:profiles(id, username, avatar_url, entity),
+            project:projects(name)
+        `)
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error loading sales:', error);
+                return;
+            }
+
+            // 2. Renderizar cada fila
+            const tbody = document.querySelector('.unified-sales-grid__body');
+            tbody.innerHTML = sales.map(sale => `
+        <tr data-sale-id="${sale.id}" data-entity="${sale.user.entity}">
+            <!-- Entity Badge -->
+            <td class="col-entity">
+                <div class="user-entity-badge" data-entity="${sale.user.entity}">
+                    <div class="user-entity-badge__avatar-wrapper">
+                        <img 
+                            src="${sale.user.avatar_url || 'https://i.pravatar.cc/150'}" 
+                            alt="${sale.user.username}"
+                            class="user-entity-badge__avatar"
+                        />
+                        <div class="user-entity-badge__entity-icon">
+                            ${sale.user.entity === 'crowdium' ? 'C' : 'F'}
+                        </div>
+                    </div>
+                    <span class="user-entity-badge__name">${sale.user.username}</span>
+                </div>
+            </td>
+
+            <!-- Project -->
+            <td class="unified-sales-grid__cell--editable">
+                <span data-field="project">${sale.project.name}</span>
+            </td>
+
+            <!-- Client -->
+            <td class="unified-sales-grid__cell--editable">
+                <span data-field="client">${sale.client_name}</span>
+            </td>
+
+            <!-- Status -->
+            <td class="col-status">
+                <span class="status-pill" data-entity="${sale.user.entity}">
+                    ${sale.status}
+                </span>
+            </td>
+
+            <!-- Amount -->
+            <td class="col-amount tabular-nums">
+                $${parseFloat(sale.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+            </td>
+
+            <!-- Actions (Permission-aware) -->
+            <td class="col-actions">
+                ${renderActionButtons(sale, currentUser)}
+            </td>
+        </tr>
+    `).join('');
+        }
+
+        // Funciones de manejo de eventos
+        function handleEdit(saleId) {
+            console.log(`Editando venta: ${saleId}`);
+            // Implementar modal de edición
+        }
+
+        function handleDelete(saleId) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta venta?')) {
+                console.log(`Eliminando venta: ${saleId}`);
+                // Implementar delete en Supabase
+            }
+        }
+
+        // Sorting de columnas
+        document.querySelectorAll('.sortable').forEach(header => {
+            header.addEventListener('click', function () {
+                const sortBy = this.dataset.sort;
+                console.log(`Ordenando por: ${sortBy}`);
+                // Implementar lógica de sorting
+            });
+        });
+    </script>
+
+</body>
+
+</html>

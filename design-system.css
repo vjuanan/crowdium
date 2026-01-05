@@ -1,0 +1,430 @@
+/**
+ * CROWDIUM APP - DUAL-ENTITY DESIGN SYSTEM
+ * Sistema de diseño unificado para Crowdium (Inmobiliaria) y CFA (Finanzas)
+ * Stack: Vanilla CSS3 + Supabase Backend
+ */
+
+/* ========================================
+   1. CSS VARIABLES - DUAL BRAND IDENTITY
+   ======================================== */
+
+:root {
+    /* === CROWDIUM BRAND === */
+    --crowdium-primary: #2563EB;
+    /* Blue 600 */
+    --crowdium-primary-hover: #1D4ED8;
+    /* Blue 700 */
+    --crowdium-light: #DBEAFE;
+    /* Blue 100 */
+    --crowdium-lighter: #EFF6FF;
+    /* Blue 50 */
+
+    /* === CFA BRAND === */
+    --cfa-primary: #DC2626;
+    /* Red 600 */
+    --cfa-primary-hover: #B91C1C;
+    /* Red 700 */
+    --cfa-light: #FEE2E2;
+    /* Red 100 */
+    --cfa-lighter: #FEF2F2;
+    /* Red 50 */
+
+    /* === NEUTRAL PALETTE === */
+    --neutral-50: #F9FAFB;
+    --neutral-100: #F3F4F6;
+    --neutral-200: #E5E7EB;
+    --neutral-300: #D1D5DB;
+    --neutral-400: #9CA3AF;
+    --neutral-500: #6B7280;
+    --neutral-600: #4B5563;
+    --neutral-700: #374151;
+    --neutral-800: #1F2937;
+    --neutral-900: #111827;
+
+    /* === SEMANTIC COLORS === */
+    --success: #10B981;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --info: #3B82F6;
+
+    /* === TYPOGRAPHY === */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    /* 12px */
+    --text-sm: 0.875rem;
+    /* 14px */
+    --text-base: 1rem;
+    /* 16px */
+    --text-lg: 1.125rem;
+    /* 18px */
+    --text-xl: 1.25rem;
+    /* 20px */
+    --text-2xl: 1.5rem;
+    /* 24px */
+
+    /* Font Weights */
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    /* === SPACING === */
+    --space-1: 0.25rem;
+    /* 4px */
+    --space-2: 0.5rem;
+    /* 8px */
+    --space-3: 0.75rem;
+    /* 12px */
+    --space-4: 1rem;
+    /* 16px */
+    --space-5: 1.25rem;
+    /* 20px */
+    --space-6: 1.5rem;
+    /* 24px */
+    --space-8: 2rem;
+    /* 32px */
+    --space-10: 2.5rem;
+    /* 40px */
+    --space-12: 3rem;
+    /* 48px */
+
+    /* === BORDERS & RADIUS === */
+    --radius-sm: 0.375rem;
+    /* 6px */
+    --radius-md: 0.5rem;
+    /* 8px */
+    --radius-lg: 0.75rem;
+    /* 12px */
+    --radius-xl: 1rem;
+    /* 16px */
+    --radius-full: 9999px;
+
+    --border-width: 1px;
+    --border-width-2: 2px;
+
+    /* === SHADOWS === */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* === TRANSITIONS === */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* === Z-INDEX SCALE === */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-modal: 1050;
+    --z-tooltip: 1070;
+}
+
+/* ========================================
+   2. BASE STYLES
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--neutral-900);
+    background-color: var(--neutral-50);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular Numbers for Financial Data */
+.tabular-nums {
+    font-variant-numeric: tabular-nums;
+    font-family: var(--font-mono);
+}
+
+/* ========================================
+   3. USER ENTITY BADGE COMPONENT
+   ======================================== */
+
+.user-entity-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.user-entity-badge__avatar-wrapper {
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.user-entity-badge__avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: var(--border-width-2) solid transparent;
+    transition: all var(--transition-base);
+}
+
+/* Entity-specific border colors */
+.user-entity-badge[data-entity="crowdium"] .user-entity-badge__avatar {
+    border-color: var(--crowdium-primary);
+}
+
+.user-entity-badge[data-entity="cfa"] .user-entity-badge__avatar {
+    border-color: var(--cfa-primary);
+}
+
+/* Entity Badge Overlay */
+.user-entity-badge__entity-icon {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-full);
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: var(--font-bold);
+    color: white;
+    box-shadow: var(--shadow-sm);
+}
+
+.user-entity-badge[data-entity="crowdium"] .user-entity-badge__entity-icon {
+    background-color: var(--crowdium-primary);
+}
+
+.user-entity-badge[data-entity="cfa"] .user-entity-badge__entity-icon {
+    background-color: var(--cfa-primary);
+}
+
+/* Username Text */
+.user-entity-badge__name {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--neutral-700);
+}
+
+/* Hover State */
+.user-entity-badge:hover .user-entity-badge__avatar {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   4. UNIFIED SALES GRID
+   ======================================== */
+
+.unified-sales-grid {
+    width: 100%;
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.unified-sales-grid__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+/* Table Header */
+.unified-sales-grid__header {
+    background-color: var(--neutral-50);
+    border-bottom: var(--border-width) solid var(--neutral-200);
+}
+
+.unified-sales-grid__header th {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    font-weight: var(--font-semibold);
+    color: var(--neutral-700);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.unified-sales-grid__header th.align-right {
+    text-align: right;
+}
+
+/* Sortable Column Headers */
+.unified-sales-grid__header th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: color var(--transition-fast);
+}
+
+.unified-sales-grid__header th.sortable:hover {
+    color: var(--neutral-900);
+}
+
+/* Table Body */
+.unified-sales-grid__body tr {
+    border-bottom: var(--border-width) solid var(--neutral-100);
+    transition: background-color var(--transition-fast);
+}
+
+.unified-sales-grid__body tr:hover {
+    background-color: var(--neutral-50);
+}
+
+.unified-sales-grid__body td {
+    padding: var(--space-4);
+    vertical-align: middle;
+}
+
+/* Entity Column (Fixed Width) */
+.unified-sales-grid__body td.col-entity {
+    width: 80px;
+}
+
+/* Status Pill Column */
+.unified-sales-grid__body td.col-status {
+    width: 120px;
+}
+
+/* Amount Column (Right-aligned, Tabular) */
+.unified-sales-grid__body td.col-amount {
+    width: 140px;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--font-semibold);
+}
+
+/* Actions Column */
+.unified-sales-grid__body td.col-actions {
+    width: 100px;
+    text-align: right;
+}
+
+/* Editable Cell Appearance */
+.unified-sales-grid__cell--editable {
+    cursor: text;
+    position: relative;
+    transition: background-color var(--transition-fast);
+}
+
+.unified-sales-grid__cell--editable:hover {
+    background-color: var(--neutral-100);
+    border-radius: var(--radius-sm);
+}
+
+/* ========================================
+   5. STATUS PILLS
+   ======================================== */
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    line-height: 1;
+}
+
+/* Entity-aware status pills */
+.status-pill[data-entity="crowdium"] {
+    background-color: var(--crowdium-lighter);
+    color: var(--crowdium-primary);
+    border: var(--border-width) solid var(--crowdium-light);
+}
+
+.status-pill[data-entity="cfa"] {
+    background-color: var(--cfa-lighter);
+    color: var(--cfa-primary);
+    border: var(--border-width) solid var(--cfa-light);
+}
+
+/* ========================================
+   6. ACTION BUTTONS
+   ======================================== */
+
+.action-buttons {
+    display: inline-flex;
+    gap: var(--space-2);
+}
+
+.action-btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--neutral-500);
+    transition: all var(--transition-fast);
+}
+
+.action-btn:hover {
+    background-color: var(--neutral-100);
+    color: var(--neutral-700);
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.action-btn--edit:hover {
+    color: var(--info);
+    background-color: #DBEAFE;
+}
+
+.action-btn--delete:hover {
+    color: var(--error);
+    background-color: #FEE2E2;
+}
+
+/* ========================================
+   7. UTILITY CLASSES
+   ======================================== */
+
+/* Entity-aware backgrounds */
+.bg-crowdium-light {
+    background-color: var(--crowdium-lighter);
+}
+
+.bg-cfa-light {
+    background-color: var(--cfa-lighter);
+}
+
+/* Text colors */
+.text-crowdium {
+    color: var(--crowdium-primary);
+}
+
+.text-cfa {
+    color: var(--cfa-primary);
+}
+
+/* High-density mode */
+.high-density .unified-sales-grid__body td {
+    padding: var(--space-2) var(--space-3);
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+    :root {
+        --text-base: 0.875rem;
+    }
+}
