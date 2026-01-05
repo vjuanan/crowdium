@@ -18,30 +18,28 @@ const users = ["Ian", "Sofia", "Juan", "Carlos"];
 // =====================================================
 
 /**
- * Generate User Entity Badge HTML - 24PX LOGO
+ * Generate User Entity Badge - CLEAN FLEXBOX
  */
 function generateUserEntityBadge(username, entity = 'crowdium', avatarUrl = null) {
     const defaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=random`;
     const avatar = avatarUrl || defaultAvatar;
-
-    // REAL logo image paths
     const logoPath = entity === 'crowdium' ? 'logo-crowdium.png' : 'logo-cfa.png';
 
     return `
-        <div class="user-entity-cell user-cell-container">
-            <div class="user-entity-badge-table">
-                <img src="${avatar}" 
-                     alt="${username}" 
-                     class="user-entity-badge-table__avatar"
-                     onerror="this.src='https://ui-avatars.com/api/?name=U&background=ccc'"
+        <div class="user-badge-row">
+            <img src="${avatar}" 
+                 alt="${username}" 
+                 class="user-avatar"
+                 onerror="this.src='https://ui-avatars.com/api/?name=U&background=ccc'"
+            />
+            <div class="user-info">
+                <span class="user-name">${username}</span>
+                <img src="${logoPath}" 
+                     alt="${entity}" 
+                     class="company-logo-mini"
+                     onerror="this.style.display='none'"
                 />
             </div>
-            <span class="user-entity-badge-table__name">${username}</span>
-            <img src="${logoPath}" 
-                 alt="${entity}" 
-                 class="company-logo-badge entity-logo-small"
-                 onerror="this.style.display='none'"
-            />
         </div>
     `;
 }
@@ -610,9 +608,11 @@ async function renderMonitoreo() {
                                 </td>
                                 <td style="text-align: left; font-weight: 500;">${item.theme}</td>
                                 <td>
-                                    <span class="status-badge" data-entity="${entity}" data-status-type="${getStatusType(item.status)}">
-                                        ${item.status}
-                                    </span>
+                                    ${(() => {
+                const statusOption = statusOptions.find(opt => opt.id === item.status_option_id) || {};
+                const colorClass = statusOption.color_type ? `st-c-${statusOption.color_type}` : 'st-c-12';
+                return `<span class="status-badge ${colorClass}">${item.status}</span>`;
+            })()}
                                 </td>
                                 <td style="text-align: left;">${item.update_text || '-'}</td>
                                 <td>${formatDate(item.created_at)}</td>
@@ -754,9 +754,11 @@ function renderVentas() {
                                 <td class="amount-cell">${formatFinancialAmount(item.gross_amount)}</td>
                                 <td class="amount-cell">${formatFinancialAmount(item.net_amount)}</td>
                                 <td>
-                                    <span class="status-badge" data-entity="${entity}" data-status-type="${getStatusType(item.status)}">
-                                        ${item.status}
-                                    </span>
+                                    ${(() => {
+                const statusOption = statusOptions.find(opt => opt.id === item.status_option_id) || {};
+                const colorClass = statusOption.color_type ? `st-c-${statusOption.color_type}` : 'st-c-12';
+                return `<span class="status-badge ${colorClass}">${item.status}</span>`;
+            })()}
                                 </td>
                                 <td>
                                     <div class="action-cell">
