@@ -1,0 +1,180 @@
+/* ================================================
+   ATTENDANCE MATRIX - Weekly Dashboard Styles
+   ================================================ */
+
+/* Legend badges at top */
+.attendance-legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+
+.legend-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-badge.office-badge {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.legend-badge.home-badge {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.legend-badge.empty-badge {
+    background: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+/* Attendance table specific styles */
+.attendance-table thead th {
+    text-align: center !important;
+    font-size: 12px;
+    padding: 12px 8px !important;
+}
+
+.attendance-table tbody td {
+    text-align: center;
+    padding: 16px 8px;
+    vertical-align: middle;
+}
+
+/* User cell (first column) */
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--crowdium-primary) 0%, #1d4ed8 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--gray-900);
+    font-size: 14px;
+}
+
+/* Attendance cell (clickable area) */
+.attendance-cell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.attendance-cell.editable {
+    cursor: pointer;
+}
+
+.attendance-cell.editable:hover {
+    background: var(--gray-100);
+    transform: scale(1.05);
+}
+
+.attendance-cell.readonly {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Location badges inside cells */
+.location-badge {
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.location-badge.office {
+    background: #d1fae5;
+    border: 2px solid #10b981;
+}
+
+.location-badge.home {
+    background: #dbeafe;
+    border: 2px solid #3b82f6;
+}
+
+.location-badge.empty {
+    background: #f9fafb;
+    color: #9ca3af;
+    font-size: 18px;
+    font-weight: 300;
+    border: 2px dashed #e5e7eb;
+}
+
+/* Hover effects for editable cells */
+.attendance-cell.editable:hover .location-badge.office {
+    background: #a7f3d0;
+    border-color: #059669;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.attendance-cell.editable:hover .location-badge.home {
+    background: #bfdbfe;
+    border-color: #2563eb;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.attendance-cell.editable:hover .location-badge.empty {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .attendance-table {
+        font-size: 12px;
+    }
+
+    .user-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .location-badge {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .attendance-cell {
+        min-width: 50px;
+        padding: 6px 8px;
+    }
+}

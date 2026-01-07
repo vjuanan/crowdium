@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="design-system.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="ui-fixes.css">
+    <link rel="stylesheet" href="attendance-styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/png" href="logo.png">
@@ -91,7 +92,6 @@
                 </a>
             </nav>
             <div class="user-profile">
-                <div id="user-avatar" class="avatar">?</div>
                 <div class="user-info">
                     <div class="user-name">Invitado</div>
                     <div id="user-role" class="user-role">VISITANTE</div>
@@ -181,7 +181,6 @@
                 <div class="form-group">
                     <label for="item-status">Estado</label>
                     <select id="item-status">
-                        <option value="OK">OK</option>
                         <option value="Crítico">Crítico</option>
                         <option value="Pendiente">Pendiente</option>
                     </select>
@@ -241,6 +240,26 @@
 
             <div class="modal-footer">
                 <button id="close-project-modal" class="btn-secondary-full">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal (Custom replacement for confirm()) -->
+    <div id="confirm-modal-overlay" class="modal-overlay hidden">
+        <div class="modal-content confirm-modal-card">
+            <div class="confirm-modal-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                    </path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+            </div>
+            <h3 id="confirm-modal-title">¿Confirmar acción?</h3>
+            <p id="confirm-modal-message">Esta acción no se puede deshacer.</p>
+            <div class="confirm-modal-actions">
+                <button id="confirm-modal-cancel" class="btn-secondary-full">Cancelar</button>
+                <button id="confirm-modal-confirm" class="btn-danger-full">Confirmar</button>
             </div>
         </div>
     </div>

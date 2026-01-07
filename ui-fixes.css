@@ -87,7 +87,8 @@
     background: transparent;
     border: none;
     box-shadow: none;
-    overflow: hidden;
+    overflow: visible;
+    /* Allow dropdowns to extend beyond table bounds */
     border-radius: 12px;
 }
 
@@ -259,4 +260,98 @@ tbody td {
 .btn-secondary-sm:hover {
     border-color: #9ca3af;
     background: #f9fafb;
+}
+
+/* === CONFIRMATION MODAL === */
+.confirm-modal-card {
+    max-width: 420px;
+    text-align: center;
+    padding: 32px;
+}
+
+.confirm-modal-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.confirm-modal-icon svg {
+    animation: pulse-warning 2s infinite;
+}
+
+@keyframes pulse-warning {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+#confirm-modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin: 0 0 12px 0;
+}
+
+#confirm-modal-message {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+}
+
+.confirm-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-danger-full {
+    background: #dc2626;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.btn-danger-full:hover {
+    background: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* === ARCHIVE VIEW === */
+.archive-banner {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1.5px solid #f59e0b;
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #92400e;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+.active-archive-btn {
+    background: #fef3c7 !important;
+    border-color: #f59e0b !important;
+    color: #92400e !important;
+    font-weight: 600;
+}
+
+.active-archive-btn:hover {
+    background: #fde68a !important;
 }

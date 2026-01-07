@@ -767,24 +767,24 @@ function renderVentas() {
                 </button>
                 
                 <button id="toggle-archive-view" class="btn-secondary-sm ${isArchivedView ? 'active-archive-btn' : ''}" onclick="toggleArchiveView()">
-                    ${isArchivedView ? `
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
-                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                        </svg>
-                        Volver a Activas
-                    ` : `
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+                    ${isArchivedView ? '
+            < svg width = "16" height = "16" viewBox = "0 0 24 24" fill = "none" stroke = "currentColor" stroke - width="2" style = "margin-right: 0.5rem;" >
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                        </svg >
+        Volver a Activas
+    ' : '
+        < svg width = "16" height = "16" viewBox = "0 0 24 24" fill = "none" stroke = "currentColor" stroke - width="2" style = "margin-right: 0.5rem;" >
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                             <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
+                        </svg >
                         📂 Ver Archivo
-                    `}
-                </button>
-            </div>
-        </div>
+    '}
+                </button >
+            </div >
+        </div >
 
-        ${isArchivedView ? '<div class="archive-banner">⚠️ Viendo Ventas Archivadas - Estas ventas están ocultas de la vista principal</div>' : ''}
+        ${ isArchivedView ? '<div class="archive-banner">⚠️ Viendo Ventas Archivadas - Estas ventas están ocultas de la vista principal</div>' : '' }
 
     <div class="table-container">
         <table class="premium-table sales-table">
@@ -805,12 +805,12 @@ function renderVentas() {
             <tbody>
                 ${data.length === 0 ? '<tr><td colspan="10" class="empty-msg">No se encontraron ventas</td></tr>' : ''}
                 ${data.filter(item => item.is_archived === isArchivedView).map(item => {
-        const entity = item.entity || mockEntity();
-        const username = item.user?.username || item.sender_username || 'Usuario';
-        const projectName = item.projects?.name || item.project_name || '-';
-        const clientName = item.client_name || '-';
+                    const entity = item.entity || mockEntity();
+                    const username = item.user?.username || item.sender_username || 'Usuario';
+                    const projectName = item.projects?.name || item.project_name || '-';
+                    const clientName = item.client_name || '-';
 
-        return `
+                    return `
                             <tr class="premium-row">
                                 <td>
                                     <button class="btn-minimal toggle-history" data-id="${item.id}" title="Historial">
@@ -830,10 +830,10 @@ function renderVentas() {
                                     <div class="status-dropdown-wrapper" style="position: relative;">
                                         <button class="status-badge-btn" onclick="toggleStatusPopover('${item.id}')" style="border:none; background:none; cursor:pointer; padding: 0;">
                                             ${(() => {
-                const statusOption = statusOptions.find(opt => opt.id === item.status_option_id) || {};
-                const colorClass = statusOption.color_type ? `st-c-${statusOption.color_type}` : 'st-c-12';
-                return `<span class="status-badge ${colorClass}">${item.status} ▼</span>`;
-            })()}
+                            const statusOption = statusOptions.find(opt => opt.id === item.status_option_id) || {};
+                            const colorClass = statusOption.color_type ? `st-c-${statusOption.color_type}` : 'st-c-12';
+                            return `<span class="status-badge ${colorClass}">${item.status} ▼</span>`;
+                        })()}
                                         </button>
                                         
                                         <div id="status-popover-${item.id}" class="status-updater-popover hidden" style="min-width: 220px;">
@@ -849,36 +849,38 @@ function renderVentas() {
                                             </div>
 
                                             </div>
+
+                                            ${!isArchivedView ? `
+                                                <div style="border-top: 1px solid #eee; margin: 8px 0; padding-top: 8px;">
+                                                    <div class="status-opt text-danger" onclick="archiveSale('${item.id}')" style="color: #dc2626;">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px;">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                        </svg>
+                                                        Archivar Venta
+                                                    </div>
+                                                </div>
+                                            ` : `
+                                                <div style="border-top: 1px solid #eee; margin: 8px 0; padding-top: 8px;">
+                                                    <div class="status-opt" onclick="restoreSale('${item.id}')" style="color: #10b981;">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px;">
+                                                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                                                            <path d="M21 3v5h-5"></path>
+                                                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                                                            <path d="M3 21v-5h5"></path>
+                                                        </svg>
+                                                        Restaurar Venta
+                                                    </div>
+                                                </div>
+                                            `}
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="action-cell">
-                                        ${!isArchivedView ? `
-                                            <button class="btn-minimal" onclick="archiveSale('${item.id}')" title="Archivar Venta" style="color: #f59e0b;">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M21 8v13H3V8"></path>
-                                                    <path d="M1 3h22v5H1z"></path>
-                                                    <polyline points="10 12 12 14 14 12"></polyline>
-                                                    <line x1="12" y1="7" x2="12" y2="14"></line>
-                                                </svg>
-                                            </button>
-                                            <button class="btn-minimal" onclick="deleteSale('${item.id}')" title="Eliminar Venta" style="color: #dc2626;">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                </svg>
-                                            </button>
-                                        ` : `
-                                            <button class="btn-minimal" onclick="restoreSale('${item.id}')" title="Restaurar Venta" style="color: #10b981;">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                                                    <path d="M21 3v5h-5"></path>
-                                                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                                                    <path d="M3 21v-5h5"></path>
-                                                </svg>
-                                            </button>
-                                        `}
+                                        <button class="btn-minimal" onclick="toggleStatusPopover('${item.id}')" title="Cambiar Estado">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -893,7 +895,7 @@ function renderVentas() {
                                 </td>
                             </tr>
                         `;
-    }).join('')}
+                }).join('')}
             </tbody>
         </table>
     </div>
@@ -907,7 +909,7 @@ function renderVentas() {
     document.querySelectorAll('.toggle-history').forEach(btn => {
         btn.addEventListener('click', async function () {
             const id = this.dataset.id;
-            const row = document.getElementById(`history - row - ${id} `);
+            const row = document.getElementById(`history - row - ${ id } `);
             const arrow = this.querySelector('.arrow-icon');
 
             if (row.classList.contains('hidden')) {
@@ -972,7 +974,7 @@ function attachSalesListeners() {
         btn.addEventListener('click', async (e) => {
             e.stopPropagation();
             const id = btn.getAttribute('data-id');
-            const historyRow = document.getElementById(`history - ${id} `);
+            const historyRow = document.getElementById(`history - ${ id } `);
             const svg = btn.querySelector('svg');
 
             if (historyRow.classList.contains('hidden')) {
@@ -1005,7 +1007,7 @@ function attachSalesListeners() {
 function renderStatusBadge(statusLabel) {
     const option = statusOptions.find(o => o.label === statusLabel);
     const color = option ? (option.color_type || 1) : 1;
-    return `< span class="status-badge st-c-${color}" > ${statusLabel}</span > `;
+    return `< span class="status-badge st-c-${color}" > ${ statusLabel }</span > `;
 }
 
 function closeStatusManagerModal() {
@@ -1064,11 +1066,11 @@ function showColorPicker(x, y, statusId) {
     const left = Math.min(x, window.innerWidth - 160);
     const top = Math.min(y, window.innerHeight - 120);
 
-    popover.style.left = `${left} px`;
-    popover.style.top = `${top} px`;
+    popover.style.left = `${ left } px`;
+    popover.style.top = `${ top } px`;
 
     const colors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    popover.innerHTML = colors.map(c => `< div class="palette-dot st-c-${c}" data - color="${c}" ></div> `).join('');
+    popover.innerHTML = colors.map(c => `< div class="palette-dot st-c-${c}" data - color="${c}" ></div > `).join('');
 
     document.body.appendChild(popover);
 
@@ -1168,7 +1170,7 @@ function renderProjectList() {
                             </svg>
                         </button>
                     </div>
-                </div>
+                </div >
         `;
         });
         html += '</div>';
@@ -1178,7 +1180,7 @@ function renderProjectList() {
         < div class="modal-footer" >
             <button class="btn-primary full-width" onclick="openProjectForm(null)">+ Nuevo Proyecto</button>
             <button class="btn-secondary-full" style="margin-top:8px;" onclick="closeProjectModal()">Cerrar</button>
-        </div>
+        </div >
         `;
 
     modalContent.innerHTML = html;
@@ -1194,7 +1196,7 @@ window.openProjectForm = function (projectId) {
         < div class="modal-header-nav" >
             <button class="back-btn" onclick="renderProjectList()">‹</button>
             <h3>${project ? 'Editar Proyecto' : 'Nuevo Proyecto'}</h3>
-        </div>
+        </div >
 
         <div class="project-form-container">
             <form id="project-form" onsubmit="handleProjectSave(event, '${projectId || ''}')">
@@ -1303,7 +1305,7 @@ async function updateStatusColor(id, color_type) {
     if (id === 'NEW') {
         selectedNewColor = color_type;
         const ind = document.getElementById('new-color-indicator');
-        if (ind) ind.className = `current - color - dot st - c - ${color_type} `;
+        if (ind) ind.className = `current - color - dot st - c - ${ color_type } `;
         return;
     }
 
@@ -1349,7 +1351,7 @@ async function addStatusFromModal() {
 }
 
 async function fetchAndRenderHistory(saleId) {
-    const container = document.querySelector(`#history - ${saleId} .history - content`);
+    const container = document.querySelector(`#history - ${ saleId } .history - content`);
     const { data, error } = await supabaseClient
         .from('sales_status_history')
         .select('*')
@@ -1357,18 +1359,19 @@ async function fetchAndRenderHistory(saleId) {
         .order('created_at', { ascending: false });
 
     if (error) {
-        container.innerHTML = `< div class="error-text" > Error al cargar historial</div> `;
+        container.innerHTML = `< div class="error-text" > Error al cargar historial</div > `;
         return;
     }
 
     if (!data || data.length === 0) {
-        container.innerHTML = `< div class="empty-history" > No hay cambios registrados.</div> `;
+        container.innerHTML = `< div class="empty-history" > No hay cambios registrados.</div > `;
         return;
     }
 
     container.innerHTML = `
         < div class="timeline" >
-            ${data.map(h => `
+            ${
+        data.map(h => `
                 <div class="timeline-item">
                     <div class="timeline-date">${formatDate(h.created_at)}</div>
                     <div class="timeline-desc">
@@ -1376,8 +1379,8 @@ async function fetchAndRenderHistory(saleId) {
                     </div>
                 </div>
             `).join('')
-        }
-        </div>
+    }
+        </div >
         `;
 }
 
@@ -1409,28 +1412,28 @@ async function renderMuro() {
         const projectName = !isReply && item.project_id ? projects.find(p => p.id === item.project_id)?.name : null;
 
         return `
-            <div class="${isReply ? 'muro-reply-wrapper' : 'thread-group'}" id="msg-${item.id}">
-                <div class="${cardClass}">
-                    <div class="muro-card-header">
-                        <div class="muro-header-left">
-                            <span class="muro-sender-wrapper">
-                                <span class="muro-sender">${item.sender_username}</span>
-                                <img src="${item.entity === 'cfa' ? 'logo-cfa.png' : 'logo-crowdium.png'}"
-                                    alt="${item.entity || 'crowdium'}"
-                                    class="company-logo-mini"
-                                    onerror="this.style.display='none'"
-                                />
-                            </span>
-                            ${item.tagged_username ? `<span class="muro-tag">@${item.tagged_username}</span>` : ''}
-                        </div>
-                        <div class="muro-header-right">
-                            ${projectName ? `<div class="muro-project">PROYECTO: ${projectName}</div>` : ''}
-                            <span class="muro-date">${formatDate(item.created_at)}</span>
-                            <div class="muro-actions">
-                                <button class="btn-minimal reply-wall-btn" data-id="${item.id}" title="Responder">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 17 4 12 9 7"></polyline><path d="M20 18v-2a4 4 0 0 0-4-4H4"></path></svg>
-                                </button>
-                                ${session ? `
+        < div class="${isReply ? 'muro-reply-wrapper' : 'thread-group'}" id = "msg-${item.id}" >
+            <div class="${cardClass}">
+                <div class="muro-card-header">
+                    <div class="muro-header-left">
+                        <span class="muro-sender-wrapper">
+                            <span class="muro-sender">${item.sender_username}</span>
+                            <img src="${item.entity === 'cfa' ? 'logo-cfa.png' : 'logo-crowdium.png'}"
+                                alt="${item.entity || 'crowdium'}"
+                                class="company-logo-mini"
+                                onerror="this.style.display='none'"
+                            />
+                        </span>
+                        ${item.tagged_username ? `<span class="muro-tag">@${item.tagged_username}</span>` : ''}
+                    </div>
+                    <div class="muro-header-right">
+                        ${projectName ? `<div class="muro-project">PROYECTO: ${projectName}</div>` : ''}
+                        <span class="muro-date">${formatDate(item.created_at)}</span>
+                        <div class="muro-actions">
+                            <button class="btn-minimal reply-wall-btn" data-id="${item.id}" title="Responder">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 17 4 12 9 7"></polyline><path d="M20 18v-2a4 4 0 0 0-4-4H4"></path></svg>
+                            </button>
+                            ${session ? `
                                     <button class="btn-minimal edit-wall-btn" data-id="${item.id}" title="Editar">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                     </button>
@@ -1438,17 +1441,20 @@ async function renderMuro() {
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                     </button>
                                 ` : ''}
-                            </div>
                         </div>
                     </div>
-                    <div class="muro-message">${item.message}</div>
                 </div>
-                ${itemReplies.length > 0 ? `
+                <div class="muro-message">${item.message}</div>
+            </div>
+                
+                ${
+        itemReplies.length > 0 ? `
                     <div class="muro-replies">
                         ${itemReplies.map(reply => renderMessageHTML(reply, true)).join('')}
                     </div>
-                ` : ''}
-            </div>
+                ` : ''
+    }
+            </div >
         `;
     }
 
@@ -1463,11 +1469,11 @@ async function renderMuro() {
         orphans.forEach(o => {
             if (!renderedIds.has(o.id)) {
                 finalHTML += `
-                    <div class="orphan-thread">
-                        <div class="orphan-label">Conversación vinculada (parent missing):</div>
-                        ${renderMessageHTML(o)}
-                    </div>
-                `;
+        < div class="orphan-thread" >
+            <div class="orphan-label">Conversación vinculada (parent missing):</div>
+                        ${ renderMessageHTML(o) }
+                    </div >
+        `;
             }
         });
     }
@@ -1524,67 +1530,61 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     const day = date.getDate();
     const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-    return `${day} ${months[date.getMonth()]} `;
+    return `${ day } ${ months[date.getMonth()] } `;
 }
 
 async function renderAsistencia() {
-    const days = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES'];
+    const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
     const { data: { session } } = await supabaseClient.auth.getSession();
 
-    if (!allProfiles || allProfiles.length === 0) {
-        contentArea.innerHTML = '<div class="loading-state">No hay usuarios registrados.</div>';
-        return;
-    }
-
     contentArea.innerHTML = `
-        <div class="table-container">
-            <table class="premium-table attendance-table">
-                <thead>
-                    <tr>
-                        <th style="width: 250px; text-align: left;">USUARIO</th>
-                        ${days.map(day => `<th>${day}</th>`).join('')}
-                    </tr>
-                </thead>
-                <tbody>
-                    ${allProfiles.map(profile => {
+        < div class="asistencia-container" >
+            <div class="attendance-legend">
+                <div class="legend-item">
+                    <span class="legend-icon">🏠</span>
+                    <span>Home Office</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🏢</span>
+                    <span>Presencial</span>
+                </div>
+            </div>
+
+            <div class="attendance-grid">
+                ${allProfiles.map(profile => {
         const userAtt = attendanceData.filter(a => a.profile_id === profile.id);
-        const canEdit = session && (session.user.id === profile.id || true);
 
         return `
-                            <tr class="premium-row">
-                                <td>
-                                    ${generateUserEntityBadge(profile.username, profile.entity || 'crowdium')}
-                                </td>
+                        <div class="attendance-user-row">
+                            <div class="attendance-info">
+                                <div class="attendance-avatar">${getInitials(profile.username)}</div>
+                                <span class="attendance-name">${profile.username}</span>
+                            </div>
+                            <div class="attendance-days">
                                 ${[0, 1, 2, 3, 4].map(dayIndex => {
             const record = userAtt.find(a => a.day_index === dayIndex);
-            const location = record ? record.location : null;
-
-            let pillClass = 'empty';
-            let pillText = '—';
-
-            if (location === 'office') {
-                pillClass = 'office';
-                pillText = '🏢 Oficina';
-            } else if (location === 'home') {
-                pillClass = 'home';
-                pillText = '🏠 Home';
-            }
-
-            const clickHandler = canEdit ? `onclick="toggleAttendance('${profile.id}', ${dayIndex}, '${location || 'null'}')"` : '';
+            const location = record ? record.location : null; // Default null or choose a default
+            const icon = location === 'home' ? '🏠' : (location === 'office' ? '🏢' : '❓');
+            const classList = location ? `location-toggle is-${location}` : 'location-toggle';
 
             return `
-                                        <td>
-                                            <span class="attendance-pill ${pillClass}" ${clickHandler}>${pillText}</span>
-                                        </td>
+                                        <div class="day-box">
+                                            <span class="day-label">${days[dayIndex].substring(0, 3)}</span>
+                                            <div class="${classList}" 
+                                                 onclick="toggleAttendance('${profile.id}', ${dayIndex}, '${location}')"
+                                                 title="${location === 'home' ? 'Home Office' : (location === 'office' ? 'Presencial' : 'Sin asignar')}">
+                                                ${icon}
+                                            </div>
+                                        </div>
                                     `;
         }).join('')}
-                            </tr>
-                        `;
+                            </div>
+                        </div>
+                    `;
     }).join('')}
-                </tbody>
-            </table>
-        </div>
-    `;
+            </div>
+        </div >
+        `;
 }
 
 async function toggleAttendance(profileId, dayIndex, currentLocation) {
@@ -1594,28 +1594,11 @@ async function toggleAttendance(profileId, dayIndex, currentLocation) {
         return;
     }
 
-    // Cycle: null -> office -> home -> null
+    // Cycle: null -> office -> home -> null (or just office <-> home)
     let nextLocation;
-    if (currentLocation === 'null' || currentLocation === '' || !currentLocation || currentLocation === 'undefined') {
-        nextLocation = 'office';
-    } else if (currentLocation === 'office') {
-        nextLocation = 'home';
-    } else {
-        // home -> back to null (delete the record)
-        const { error } = await supabaseClient
-            .from('user_attendance')
-            .delete()
-            .eq('profile_id', profileId)
-            .eq('day_index', dayIndex);
-
-        if (error) {
-            console.error('Error removing attendance:', error);
-            alert('Error al actualizar asistencia: ' + error.message);
-        } else {
-            fetchData(); // Optimistic UI update
-        }
-        return;
-    }
+    if (currentLocation === 'null' || currentLocation === '' || !currentLocation || currentLocation === 'undefined') nextLocation = 'office';
+    else if (currentLocation === 'office') nextLocation = 'home';
+    else nextLocation = 'office';
 
     const { error } = await supabaseClient
         .from('user_attendance')
@@ -1624,17 +1607,13 @@ async function toggleAttendance(profileId, dayIndex, currentLocation) {
             day_index: dayIndex,
             location: nextLocation,
             updated_at: new Date().toISOString()
-        }, {
-            onConflict: 'profile_id,day_index',
-            ignoreDuplicates: false
-        });
+        }, { onConflict: 'profile_id, day_index' });
 
     if (error) {
         console.error('Error toggling attendance:', error);
         alert('Error al actualizar asistencia: ' + error.message);
     } else {
-        console.log(`✅ Guardado: Usuario ${profileId}, Día ${dayIndex}, Ubicación: ${nextLocation}`);
-        // Optimistic UI update
+        // Real-time or manual re-fetch
         fetchData();
     }
 }
@@ -1645,12 +1624,12 @@ async function toggleAttendance(profileId, dayIndex, currentLocation) {
 
 // Toggle status dropdown popover (open/close)
 window.toggleStatusPopover = function (saleId) {
-    const popover = document.getElementById(`status - popover - ${saleId} `);
+    const popover = document.getElementById(`status - popover - ${ saleId } `);
     if (!popover) return;
 
     // Close all other popovers first
     document.querySelectorAll('.status-updater-popover').forEach(p => {
-        if (p.id !== `status - popover - ${saleId} `) {
+        if (p.id !== `status - popover - ${ saleId } `) {
             p.classList.add('hidden');
         }
     });
@@ -1686,7 +1665,7 @@ window.updateSaleStatus = async function (saleId, newStatus) {
         } else {
             console.log('Status updated successfully');
             // Close the popover
-            const popover = document.getElementById(`status - popover - ${saleId} `);
+            const popover = document.getElementById(`status - popover - ${ saleId } `);
             if (popover) popover.classList.add('hidden');
 
             // Refresh data to show new status
@@ -1719,7 +1698,7 @@ window.archiveSale = async function (saleId) {
             alert('Error al archivar: ' + error.message);
         } else {
             // Close the popover
-            const popover = document.getElementById(`status - popover - ${saleId} `);
+            const popover = document.getElementById(`status - popover - ${ saleId } `);
             if (popover) popover.classList.add('hidden');
 
             // Refresh data (archived item will disappear)
@@ -1732,13 +1711,13 @@ window.archiveSale = async function (saleId) {
 };
 
 // Toggle between Active and Archived view
-window.toggleArchiveView = function () {
+window.toggleArchiveView = function() {
     isArchivedView = !isArchivedView;
     renderVentas();
 };
 
 // Restore an archived sale (un-archive)
-window.restoreSale = async function (saleId) {
+window.restoreSale = async function(saleId) {
     const confirmed = await showConfirm(
         '¿Restaurar esta venta?',
         'La venta volverá a aparecer en la lista de ventas activas.'
@@ -1757,7 +1736,7 @@ window.restoreSale = async function (saleId) {
             alert('Error al restaurar: ' + error.message);
         } else {
             // Close the popover
-            const popover = document.getElementById(`status - popover - ${saleId} `);
+            const popover = document.getElementById(`status - popover - ${ saleId } `);
             if (popover) popover.classList.add('hidden');
 
             // Refresh data (restored item will disappear from archive view)
@@ -1766,33 +1745,6 @@ window.restoreSale = async function (saleId) {
     } catch (err) {
         console.error('Error in restoreSale:', err);
         alert('Error al restaurar venta');
-    }
-};
-
-// Delete a sale permanently
-window.deleteSale = async function (saleId) {
-    const confirmed = await showConfirm(
-        '¿Eliminar esta venta permanentemente?',
-        'Esta acción no se puede deshacer. La venta se eliminará de la base de datos.'
-    );
-
-    if (!confirmed) return;
-
-    try {
-        const { error } = await supabaseClient
-            .from('sales_status')
-            .delete()
-            .eq('id', saleId);
-
-        if (error) {
-            console.error('Error deleting sale:', error);
-            alert('Error al eliminar: ' + error.message);
-        } else {
-            await fetchData();
-        }
-    } catch (err) {
-        console.error('Error in deleteSale:', err);
-        alert('Error al eliminar venta');
     }
 };
 
